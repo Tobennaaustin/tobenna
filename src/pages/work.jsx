@@ -480,7 +480,7 @@ export default function Work() {
               Get in touch
             </motion.a>
             <motion.a
-              href="#"
+              href="/TOBENNA TEDDY-AUSTIN.pdf"
               className="rounded-btn border border-line-soft px-5 py-3 font-mono text-[13px] text-fg-soft transition-colors hover:border-line-hover hover:text-fg"
               variants={{
                 hidden: { opacity: 0, y: 20, scale: 0.9 },

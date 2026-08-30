@@ -626,7 +626,7 @@ export default function About() {
               }}
             >
               <a
-                href="#"
+                href="/TOBENNA TEDDY-AUSTIN.pdf"
                 className="rounded-lg border border-line-soft px-5 py-3 font-mono text-[13px] text-fg-soft transition-colors hover:border-accent hover:text-fg"
                 {...hoverScale}
                 whileTap={{ scale: 0.95 }}

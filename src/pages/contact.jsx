@@ -503,7 +503,7 @@ export default function Contact() {
               </motion.div>
 
               <motion.a
-                href="/resume.pdf"
+                href="/TOBENNA TEDDY-AUSTIN.pdf"
                 className="block rounded-[8px] border border-line-soft px-3.25 py-3.25 text-center font-mono text-[13px] text-fg-soft transition-colors hover:border-accent hover:text-accent"
                 whileHover={{
                   scale: 1.03,
