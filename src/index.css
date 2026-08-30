@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---------- BREAKPOINTS ----------------------------------
+     Spec: mobile ≤640 · tablet 641–1024 · desktop ≥1025
+     Tailwind defaults are wiped so nothing drifts off-spec.
+     Mobile is the base layer (no prefix).
+     Usage: class="text-3xl tablet:text-5xl desktop:text-7xl"
+  ---------------------------------------------------------- */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 521px;
+  /* nav links reappear      */
+  --breakpoint-md: 821px;
+  /* case grids go 2-column  */
+  --breakpoint-tablet: 641px;
+  --breakpoint-desktop: 1025px;
+
+  /* ---------- COLOR ----------------------------------------
+     bg-canvas · bg-surface · bg-chrome · border-line · text-fg …
+  ---------------------------------------------------------- */
+  --color-canvas: #0a0b0e;
+  /* page background            */
+  --color-surface: #0d0f13;
+  /* cards                      */
+  --color-chrome: #101318;
+  /* elevated / browser chrome  */
+  --color-hairline: #14181e;
+  /* 1px internal dividers      */
+  --color-line: #1b2027;
+  /* default border             */
+  --color-line-hover: #2f6f66;
+  /* border on hover            */
+
+  --color-accent: #4fe0d0;
+  --color-accent-hover: #7ef0e2;
+  --color-accent-ink: #04120f;
+  /* text ON accent             */
+
+  --color-fg: #f2f5f7;
+  /* text / primary             */
+  --color-fg-bright: #e6e8ec;
+  /* lede paragraphs, brand     */
+  --color-fg-soft: #c3c8d0;
+  /* aside body, ghost buttons  */
+  --color-fg-dim: #a9afba;
+  /* text / secondary           */
+  --color-fg-nav: #9aa0aa;
+  /* idle nav links             */
+  --color-fg-muted: #5b6270;
+  /* mono labels                */
+  --color-fg-faint: #3a414b;
+  /* placeholder captions       */
+
+  --color-ghost: #1f2630;
+  /* the huge 01/02/03 numerals */
+  --color-line-soft: #232a33;
+  /* secondary button border    */
+  --color-accent-soft: #7bd8cc;
+  /* stack chip text            */
+
+  /* ---------- TYPEFACES ------------------------------------
+     font-display (= font-sans) · font-mono
+  ---------------------------------------------------------- */
+  --font-display:
+    "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-sans: var(--font-display);
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular,
+    Menlo, monospace;
+
+  /* ---------- RADIUS ---------------------------------------
+     rounded-btn · rounded-card · rounded-pill · rounded-window*
+  ---------------------------------------------------------- */
+  --radius-btn: 8px;
+  --radius-card: 14px;
+  --radius-pill: 20px;
+  --radius-window: 14px;
+  /* mobile mock  */
+  --radius-window-md: 26px;
+  /* tablet mock  */
+  --radius-window-lg: 44px;
+  /* desktop mock */
+
+  /* ---------- ELEVATION ------------------------------------
+     shadow-float
+  ---------------------------------------------------------- */
+  --shadow-float: 0 40px 90px -30px rgb(0 0 0 / 0.85);
+
+  /* ---------- LAYOUT ---------------------------------------
+     max-w-page  →  1152px content column
+  ---------------------------------------------------------- */
+  --container-page: 1152px;
+  --container-shell: 1180px;
+  /* work page column */
+
+  /* ---------- MOTION ---------------------------------------
+     ease-expo · ease-standard · duration-*
+  ---------------------------------------------------------- */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+:root {
+  /* mobile (base) */
+  --t-display: 38px;
+  --t-contact: 27px;
+  --t-h2: 21px;
+  --t-lede: 15.5px;
+  --t-body: 15px;
+  --t-meta: 13.5px;
+  --t-label: 11.5px;
+
+  /* section rhythm — y / x */
+  --section-y: 40px;
+  --section-x: 22px;
+
+  /* gutters */
+  --gutter: clamp(20px, 5vw, 48px);
+}
+
+@media (min-width: 641px) {
+  :root {
+    --t-display: 52px;
+    --t-contact: 32px;
+    --t-h2: 23px;
+    --t-lede: 17px;
+    --t-body: 15px;
+    --t-meta: 13.5px;
+    --t-label: 12.5px;
+
+    --section-y: 52px;
+    --section-x: 32px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --t-display: 76px;
+    --t-contact: 40px;
+    --t-h2: 26px;
+    --t-lede: 20px;
+    --t-body: 16px;
+    --t-meta: 14px;
+    --t-label: 12.5px;
+
+    --section-y: 64px;
+    --section-x: 48px;
+  }
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-display);
+    font-size: var(--t-body);
+    line-height: 1.75;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+
+@layer components {
+  .t-display {
+    font-family: var(--font-display);
+    font-size: var(--t-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  .t-contact {
+    font-family: var(--font-display);
+    font-size: var(--t-contact);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-size: var(--t-h2);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .t-lede {
+    font-family: var(--font-display);
+    font-size: var(--t-lede);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-fg-dim);
+  }
+
+  .t-body {
+    font-family: var(--font-display);
+    font-size: var(--t-body);
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  .t-meta {
+    font-family: var(--font-display);
+    font-size: var(--t-meta);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-fg-dim);
+  }
+
+  /* mono eyebrow / label — SOFTWARE ENGINEER · FRONTEND · BACKEND */
+  .t-label {
+    font-family: var(--font-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    color: var(--color-fg-muted);
+  }
+
+  /* ----------  LAYOUT PRIMITIVES  ---------- */
+
+  /* the 1152px content column with spec gutters */
+  .page {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* section rhythm: 64/48 desktop · 52/32 tablet · 40/22 mobile */
+  .section {
+    padding-block: var(--section-y);
+    padding-inline: var(--section-x);
+  }
+
+  .section-y {
+    padding-block: var(--section-y);
+  }
+
+  .section-x {
+    padding-inline: var(--section-x);
+  }
+
+  /* hairline divider */
+  .rule {
+    border-top: 1px solid var(--color-hairline);
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+@layer utilities {
+
+  /* the diagonal hatch used in the project thumbnail placeholders */
+  .bg-hatch {
+    background-image: repeating-linear-gradient(45deg,
+        transparent 0 6px,
+        var(--color-hairline) 6px 7px);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ============================================================
+   WORK PAGE PRIMITIVES
+   ============================================================ */
+
+@layer components {
+
+  /* 1180px column, edge gutters clamp(22px, 5vw, 64px) */
+  .shell {
+    width: 100%;
+    max-width: var(--container-shell);
+    margin-inline: auto;
+    padding-inline: clamp(22px, 5vw, 64px);
+  }
+
+  /* stack chip — React · TypeScript · Go … */
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-accent-soft);
+    background: rgb(79 224 208 / 0.08);
+    border: 1px solid rgb(79 224 208 / 0.18);
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+  }
+}
+
+@layer utilities {
+
+  /* 135° stripe fill for the project preview plate */
+  .bg-diagonal {
+    background-image: repeating-linear-gradient(135deg,
+        #0f1318 0 12px,
+        #121820 12px 24px);
+  }
+}
